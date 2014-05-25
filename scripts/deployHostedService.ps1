@@ -9,8 +9,7 @@ param(
     [string] $serviceName
 )
 
-#$fullTargetName = "$($targetPackageName)_$(get-date -f yyyyMMdd_hhmmss)"
-$fullTargetName = "build_20140524_105402"
+$fullTargetName = "$($targetPackageName)_$(get-date -f yyyyMMdd_hhmmss)"
 $fullTargetDeploymentName = "build-$(get-date -f "yyyyMMdd-hhmmss")"
 $fullTargetPackageName = "$($fullTargetName).cspkg"
 
@@ -65,7 +64,7 @@ try{
  
         Set-AzureSubscription $subscriptionName -CurrentStorageAccount $storageAccountName
  
-        Select-AzureSubscription $subscriptionName
+        Select-AzureSubscription $subscriptionName -Current
 
         # Upload package
         Write-Host "- Uploading package to $fullTargetPackageName"
@@ -151,4 +150,7 @@ try{
 catch [System.Exception]{
     Write-Host $_.Exception.ToString()
     exit 1
+}
+finally{
+    Remove-AzureAccount -Name $subscriptionName -Force
 }
