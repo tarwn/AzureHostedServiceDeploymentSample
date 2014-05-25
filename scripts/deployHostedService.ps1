@@ -68,15 +68,15 @@ try{
         Select-AzureSubscription $subscriptionName
 
         # Upload package
-#        Write-Host "- Uploading package to $fullTargetPackageName"
-#
-#        $container = Get-AzureStorageContainer -Name $containerName -ErrorAction SilentlyContinue
-#        if(!$container){
-#            Write-Host "- $containerName storage container does not exist, creating it"
-#            New-AzureStorageContainer -Name $containerName
-#        }
-#
-#        Set-AzureStorageBlobContent -File $packagePath -Container $containerName -Blob $fullTargetPackageName -Force
+        Write-Host "- Uploading package to $fullTargetPackageName"
+
+        $container = Get-AzureStorageContainer -Name $containerName -ErrorAction SilentlyContinue
+        if(!$container){
+            Write-Host "- $containerName storage container does not exist, creating it"
+            New-AzureStorageContainer -Name $containerName
+        }
+
+        Set-AzureStorageBlobContent -File $packagePath -Container $containerName -Blob $fullTargetPackageName -Force
         $blobInfo = Get-AzureStorageBlob  -Container $containerName -blob $fullTargetPackageName
         $packageUri = $blobInfo.ICloudBlob.Uri
 
